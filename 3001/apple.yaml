@@ -1,0 +1,8 @@
+
+path: apple_dataset
+
+train: images/train
+val: images/val
+
+names:
+  0: apple
