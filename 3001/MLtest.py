@@ -1,23 +1,47 @@
 
-# ============================================================
-# MACHINE LEARNING MODEL 1 - TESTING
-#
-# PURPOSE:
-# Test the first trained YOLO model on 16 Summer RGB images
-# and count the number of detected apples.
-#
-# The same 16 images will be used to test Models 1, 2 and 3
-# to allow comparison of their detection results.
-#
-# MODEL:
-# - Dataset: AL (11 training images)
-# - Confidence threshold: 0.25
-# - Test images: 16
-#
-# OUTPUT:
-# - CSV containing apple counts for each image
-# - Summary of total and average detected apples
-# ============================================================
+"""
+Machine Learning Model 1 - Testing.
+
+Tests the first trained YOLO model on 16 Summer RGB images
+to detect and count apples. The same images are used to
+evaluate Models 1, 2, and 3 for consistent comparison.
+
+Dataset:
+    Source: appledata.zip
+    Training dataset: AL (11 training images)
+    Test images: 16 Summer RGB images
+
+Model Configuration:
+    Model: Trained YOLO11n
+    Confidence threshold: 0.25
+    Random selection seed: 42
+
+Process:
+    Extracts the image dataset if necessary and identifies
+    all available Summer RGB images.
+
+    Selects 16 random images using a fixed seed, or reuses
+    a previously saved selection to ensure consistent
+    comparison between models.
+
+    Performs apple detection on each selected image and
+    records the number of detected apples.
+
+Outputs:
+    Saves selected image filenames to
+    'comparison_16_images.csv' if not already present.
+
+    Exports detected apple counts to
+    'model1_16_apple_counts.csv'.
+
+    Displays the total, average, minimum, and maximum
+    number of detected apples per image.
+
+Raises:
+    RuntimeError: If fewer than 16 Summer RGB images are found.
+    KeyError: If a previously selected image is not found
+        in the extracted dataset.
+"""
 
 import zipfile
 import os

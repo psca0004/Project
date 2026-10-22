@@ -1,20 +1,26 @@
-# ============================================================
-# MACHINE LEARNING MODEL 2 - TESTING
-#
-# PURPOSE:
-# Test the second trained YOLO model on the same 16 Summer
-# RGB images used to test Model 1.
-#
-# MODEL:
-# - Dataset: AL2 (26 training images)
-# - Confidence threshold: 0.25
-# - Test images: 16
-#
-# OUTPUT:
-# - Images showing detected apples and bounding boxes
-# - CSV containing apple counts for each image
-# - Summary of total and average detected apples
-# ============================================================
+
+"""
+Machine Learning Model 2 - Testing.
+
+Tests the second trained YOLO model on the same 16 Summer RGB
+images used to evaluate Model 1. Detects apples and records
+the number of detections in each image.
+
+Model Configuration:
+    Dataset: AL2 (26 training images)
+    Confidence threshold: 0.25
+    Test images: 16
+
+Outputs:
+    Saves annotated images showing detected apples and their
+    bounding boxes in the 'apple_test_32' results directory.
+
+    Exports apple counts for each image to
+    'model2_16_apple_counts.csv'.
+
+    Displays summary statistics including the total, average,
+    minimum, and maximum number of detected apples per image.
+"""
 
 import os
 import csv

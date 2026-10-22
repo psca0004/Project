@@ -1,54 +1,33 @@
 
-import os
-import random
-import shutil
+"""
+YOLO Model Architecture and Information.
 
-# Full apple dataset
-source_folder = "extracted_full/Dataset"
+Loads each of the three trained YOLO models and displays
+information about their architectures and model complexity.
 
-# Previous annotated dataset
-existing_folder = "AL2"
+Models:
+    Model 1: Trained using the AL dataset.
+    Model 2: Trained using the AL2 dataset.
+    Model 3: Trained using the AL3 dataset.
 
-# Folder for new images
-output_folder = "images3"
-os.makedirs(output_folder, exist_ok=True)
+Process:
+    Loads each model from its saved weights file and calls
+    the model.info() method to display model information.
 
-# Find tree IDs already used in AL2
-existing_ids = set()
+Outputs:
+    Prints information for each model, allowing comparison
+    of their architectures and complexity.
+"""
 
-for split in ["train", "valid", "test"]:
-    folder = os.path.join(existing_folder, split)
+from ultralytics import YOLO
 
-    for root, dirs, files in os.walk(folder):
-        for file in files:
-            if "_Summer_RGB" in file:
-                existing_ids.add(file.split("_")[0])
+models = {
+    "Model 1": "runs/detect/train-6/weights/best.pt",
+    "Model 2": "runs/detect/runs/detect/apple_model_32/weights/best.pt",
+    "Model 3": "runs/detect/runs/apple_model_64-9/weights/best.pt"
+}
 
-# Find available Summer RGB images
-available_images = []
-
-for file in os.listdir(source_folder):
-    if "_Summer_RGB" in file and file.lower().endswith(".png"):
-        tree_id = file.split("_")[0]
-
-        if tree_id not in existing_ids:
-            available_images.append(file)
-
-# Select 43 new images
-random.seed(43)
-selected_images = random.sample(
-    sorted(available_images), 43
-)
-
-# Copy selected images
-for file in selected_images:
-    shutil.copy2(
-        os.path.join(source_folder, file),
-        os.path.join(output_folder, file)
-    )
-
-print("New images selected:", len(selected_images))
-print("Saved to:", output_folder)
-
-for file in selected_images:
-    print(file)
+for name, path in models.items():
+    print("\n", name)
+    model = YOLO(path)
+    model.info()

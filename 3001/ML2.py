@@ -1,22 +1,27 @@
-# ============================================================
-# MACHINE LEARNING MODEL 2 - TRAINING
-#
-# PURPOSE:
-# Train a second YOLO model to detect apples in RGB images
-# using a larger dataset than Model 1.
-#
-# DATASET:
-# AL2 contains:
-# - 26 training images
-# - 7 validation images
-# - 4 testing images
-#
-# TRAINING:
-# - Model: YOLO11n
-# - Epochs: 100
-# - Image size: 640 pixels
-# - Batch size: 4
-# ============================================================
+
+"""
+Machine Learning Model 2 - Training.
+
+Trains a pretrained YOLO11n model to detect and locate apples
+in RGB images using the larger AL2 dataset.
+
+Dataset:
+    Training images: 26
+    Validation images: 7
+    Testing images: 4
+
+Training Configuration:
+    Model: YOLO11n
+    Epochs: 100
+    Image size: 640 pixels
+    Batch size: 4
+
+Outputs:
+    Saves the trained model weights and training results
+    under the 'runs/detect/apple_model_32' directory.
+
+    Prints a message when training is complete.
+"""
 
 from ultralytics import YOLO
 

@@ -1,20 +1,45 @@
-# ============================================================
-# MACHINE LEARNING MODEL 3 - TESTING
-#
-# PURPOSE:
-# Test the third trained YOLO model on the same 16 Summer
-# RGB images used to test Models 1 and 2.
-#
-# MODEL:
-# - Dataset: AL3 (56 training images)
-# - Confidence threshold: 0.25
-# - Test images: 16
-#
-# OUTPUT:
-# - Images showing detected apples and bounding boxes
-# - CSV containing apple counts for each image
-# - Summary of total and average detected apples
-# ============================================================
+
+"""
+Machine Learning Model 3 - Testing.
+
+Tests the third trained YOLO model on the same 16 Summer RGB
+images used to evaluate Models 1 and 2. Detects apples and
+records the number of detections in each image to allow
+consistent comparison between the three models.
+
+Dataset:
+    Training dataset: AL3 (56 training images)
+    Test images: 16 Summer RGB images
+
+Model Configuration:
+    Model: Trained YOLO11n
+    Confidence threshold: 0.25
+
+Process:
+    Loads the trained model and reads the selected image
+    filenames from 'comparison_16_images.csv'.
+
+    Checks that each selected image exists and that exactly
+    16 images have been selected.
+
+    Runs apple detection on each image and records the
+    number of detected apples.
+
+Outputs:
+    Saves annotated images showing detected apples and
+    their bounding boxes under 'runs/detect/apple_test_64'.
+
+    Exports apple counts for each image to
+    'model3_16_apple_counts.csv'.
+
+    Displays summary statistics including the total, average,
+    minimum, and maximum number of detected apples per image.
+
+Raises:
+    FileNotFoundError: If a selected image does not exist.
+    ValueError: If the selection does not contain exactly
+        16 images.
+"""
 
 import os
 import csv

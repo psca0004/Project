@@ -1,21 +1,25 @@
-# ============================================================
-# MACHINE LEARNING MODEL 1 - TRAINING
-#
-# PURPOSE:
-# Train a YOLO model to detect and locate apples in RGB images.
-#
-# DATASET:
-# AL contains:
-# - 11 training images
-# - 3 validation images
-# - 2 testing images
-#
-# TRAINING:
-# - Model: YOLO11n
-# - Epochs: 100
-# - Image size: 640 pixels
-# - Batch size: 4
-# ============================================================
+
+"""
+Machine Learning Model 1 - Training.
+
+Trains a pretrained YOLO11n model to detect and locate apples
+in RGB images using the AL dataset.
+
+Dataset:
+    Training images: 11
+    Validation images: 3
+    Testing images: 2
+
+Training Configuration:
+    Model: YOLO11n
+    Epochs: 100
+    Image size: 640 pixels
+    Batch size: 4
+
+Outputs:
+    Saves the trained model weights and training results
+    to the 'first_dataset_retrain' experiment directory.
+"""
 
 from ultralytics import YOLO
 
