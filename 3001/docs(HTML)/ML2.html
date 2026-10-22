@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ML2.py</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+    line-height: 1.55;
+    color: #222;
+}
+h1, h2 {
+    color: #17365d;
+}
+a {
+    color: #0759a5;
+}
+nav, .purpose {
+    background: #f3f6fa;
+    padding: 14px 18px;
+    border-radius: 6px;
+}
+pre {
+    background: #f6f8fa;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.9em;
+}
+footer {
+    margin-top: 30px;
+    color: #666;
+    font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+    
+<p><a href="index.html">&larr; Back to documentation index</a></p>
+
+<h1>ML2.py</h1>
+
+<h2>Module description</h2>
+<div class="purpose">
+    <p>Machine Learning Model 2 - Training.
+
+Trains a pretrained YOLO11n model to detect and locate apples
+in RGB images using the larger AL2 dataset.
+
+Dataset:
+    Training images: 26
+    Validation images: 7
+    Testing images: 4
+
+Training Configuration:
+    Model: YOLO11n
+    Epochs: 100
+    Image size: 640 pixels
+    Batch size: 4
+
+Outputs:
+    Saves the trained model weights and training results
+    under the &#x27;runs/detect/apple_model_32&#x27; directory.
+
+    Prints a message when training is complete.</p>
+</div>
+
+<h2>Source code</h2>
+<p>
+The complete contents of <code>ML2.py</code>
+are displayed below.
+</p>
+
+<pre><code>
+&quot;&quot;&quot;
+Machine Learning Model 2 - Training.
+
+Trains a pretrained YOLO11n model to detect and locate apples
+in RGB images using the larger AL2 dataset.
+
+Dataset:
+    Training images: 26
+    Validation images: 7
+    Testing images: 4
+
+Training Configuration:
+    Model: YOLO11n
+    Epochs: 100
+    Image size: 640 pixels
+    Batch size: 4
+
+Outputs:
+    Saves the trained model weights and training results
+    under the &#x27;runs/detect/apple_model_32&#x27; directory.
+
+    Prints a message when training is complete.
+&quot;&quot;&quot;
+
+from ultralytics import YOLO
+
+# Load the pretrained YOLO11 nano model
+model = YOLO(&quot;yolo11n.pt&quot;)
+
+# Train the model using the AL2 dataset
+model.train(
+    data=&quot;AL2/apple.yaml&quot;,     # Dataset configuration
+    epochs=100,                # Number of training cycles
+    imgsz=640,                 # Input image size
+    batch=4,                   # Images per batch
+    project=&quot;runs/detect&quot;,     # Results directory
+    name=&quot;apple_model_32&quot;      # Results folder name
+)
+
+# Confirm training is complete
+print(&quot;\nTraining complete!&quot;)
+</code></pre>
+
+    <footer>Generated from the project source files.</footer>
+</body>
+</html>

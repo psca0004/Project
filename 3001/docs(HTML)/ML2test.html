@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ML2test.py</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+    line-height: 1.55;
+    color: #222;
+}
+h1, h2 {
+    color: #17365d;
+}
+a {
+    color: #0759a5;
+}
+nav, .purpose {
+    background: #f3f6fa;
+    padding: 14px 18px;
+    border-radius: 6px;
+}
+pre {
+    background: #f6f8fa;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.9em;
+}
+footer {
+    margin-top: 30px;
+    color: #666;
+    font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+    
+<p><a href="index.html">&larr; Back to documentation index</a></p>
+
+<h1>ML2test.py</h1>
+
+<h2>Module description</h2>
+<div class="purpose">
+    <p>Machine Learning Model 2 - Testing.
+
+Tests the second trained YOLO model on the same 16 Summer RGB
+images used to evaluate Model 1. Detects apples and records
+the number of detections in each image.
+
+Model Configuration:
+    Dataset: AL2 (26 training images)
+    Confidence threshold: 0.25
+    Test images: 16
+
+Outputs:
+    Saves annotated images showing detected apples and their
+    bounding boxes in the &#x27;apple_test_32&#x27; results directory.
+
+    Exports apple counts for each image to
+    &#x27;model2_16_apple_counts.csv&#x27;.
+
+    Displays summary statistics including the total, average,
+    minimum, and maximum number of detected apples per image.</p>
+</div>
+
+<h2>Source code</h2>
+<p>
+The complete contents of <code>ML2test.py</code>
+are displayed below.
+</p>
+
+<pre><code>
+&quot;&quot;&quot;
+Machine Learning Model 2 - Testing.
+
+Tests the second trained YOLO model on the same 16 Summer RGB
+images used to evaluate Model 1. Detects apples and records
+the number of detections in each image.
+
+Model Configuration:
+    Dataset: AL2 (26 training images)
+    Confidence threshold: 0.25
+    Test images: 16
+
+Outputs:
+    Saves annotated images showing detected apples and their
+    bounding boxes in the &#x27;apple_test_32&#x27; results directory.
+
+    Exports apple counts for each image to
+    &#x27;model2_16_apple_counts.csv&#x27;.
+
+    Displays summary statistics including the total, average,
+    minimum, and maximum number of detected apples per image.
+&quot;&quot;&quot;
+
+import os
+import csv
+from ultralytics import YOLO
+
+# Load the second trained YOLO model
+model = YOLO(
+    &quot;runs/detect/runs/detect/apple_model_32/weights/best.pt&quot;
+)
+
+# Read the same 16 images selected for Model 1
+selection_file = &quot;comparison_16_images.csv&quot;
+image_folder = &quot;extracted_full/Dataset&quot;
+
+selected_images = []
+
+with open(selection_file, &quot;r&quot;, newline=&quot;&quot;) as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+        image_path = os.path.join(image_folder, row[&quot;image&quot;])
+
+        if not os.path.isfile(image_path):
+            raise FileNotFoundError(image_path)
+
+        selected_images.append(image_path)
+
+# Check that exactly 16 images were selected
+if len(selected_images) != 16:
+    raise ValueError(&quot;Expected exactly 16 comparison images&quot;)
+
+print(&quot;Images selected:&quot;, len(selected_images))
+
+# Run apple detection on the 16 images
+results = model.predict(
+    source=selected_images,
+    conf=0.25,                 # Minimum detection confidence
+    save=True,                 # Save images with bounding boxes
+    project=&quot;runs/detect&quot;,     # Results directory
+    name=&quot;apple_test_32&quot;       # Results folder name
+)
+
+# Store apple counts for each image
+results_data = []
+
+print(&quot;\nDetection results:&quot;)
+
+for result in results:
+
+    apple_count = len(result.boxes)
+    filename = os.path.basename(result.path)
+
+    results_data.append([filename, apple_count])
+
+    print(filename, &quot;-&gt;&quot;, apple_count, &quot;apples detected&quot;)
+
+# Save detection counts to CSV
+csv_file = &quot;model2_16_apple_counts.csv&quot;
+
+with open(csv_file, &quot;w&quot;, newline=&quot;&quot;) as f:
+    writer = csv.writer(f)
+    writer.writerow([&quot;image&quot;, &quot;apple_count&quot;])
+    writer.writerows(results_data)
+
+# Calculate summary statistics
+counts = [row[1] for row in results_data]
+
+print(&quot;\nSummary:&quot;)
+print(&quot;Images processed:&quot;, len(counts))
+print(&quot;Total detected apples:&quot;, sum(counts))
+print(&quot;Average apples per image:&quot;, sum(counts) / len(counts))
+print(&quot;Minimum apples in an image:&quot;, min(counts))
+print(&quot;Maximum apples in an image:&quot;, max(counts))
+
+print(&quot;\nResults saved to:&quot;, csv_file)
+</code></pre>
+
+    <footer>Generated from the project source files.</footer>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SetUp.py</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+    line-height: 1.55;
+    color: #222;
+}
+h1, h2 {
+    color: #17365d;
+}
+a {
+    color: #0759a5;
+}
+nav, .purpose {
+    background: #f3f6fa;
+    padding: 14px 18px;
+    border-radius: 6px;
+}
+pre {
+    background: #f6f8fa;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.9em;
+}
+footer {
+    margin-top: 30px;
+    color: #666;
+    font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+    
+<p><a href="index.html">&larr; Back to documentation index</a></p>
+
+<h1>SetUp.py</h1>
+
+<h2>Module description</h2>
+<div class="purpose">
+    <p>YOLO Model Architecture and Information.
+
+Loads each of the three trained YOLO models and displays
+information about their architectures and model complexity.
+
+Models:
+    Model 1: Trained using the AL dataset.
+    Model 2: Trained using the AL2 dataset.
+    Model 3: Trained using the AL3 dataset.
+
+Process:
+    Loads each model from its saved weights file and calls
+    the model.info() method to display model information.
+
+Outputs:
+    Prints information for each model, allowing comparison
+    of their architectures and complexity.</p>
+</div>
+
+<h2>Source code</h2>
+<p>
+The complete contents of <code>SetUp.py</code>
+are displayed below.
+</p>
+
+<pre><code>
+&quot;&quot;&quot;
+YOLO Model Architecture and Information.
+
+Loads each of the three trained YOLO models and displays
+information about their architectures and model complexity.
+
+Models:
+    Model 1: Trained using the AL dataset.
+    Model 2: Trained using the AL2 dataset.
+    Model 3: Trained using the AL3 dataset.
+
+Process:
+    Loads each model from its saved weights file and calls
+    the model.info() method to display model information.
+
+Outputs:
+    Prints information for each model, allowing comparison
+    of their architectures and complexity.
+&quot;&quot;&quot;
+
+from ultralytics import YOLO
+
+models = {
+    &quot;Model 1&quot;: &quot;runs/detect/train-6/weights/best.pt&quot;,
+    &quot;Model 2&quot;: &quot;runs/detect/runs/detect/apple_model_32/weights/best.pt&quot;,
+    &quot;Model 3&quot;: &quot;runs/detect/runs/apple_model_64-9/weights/best.pt&quot;
+}
+
+for name, path in models.items():
+    print(&quot;\n&quot;, name)
+    model = YOLO(path)
+    model.info()
+</code></pre>
+
+    <footer>Generated from the project source files.</footer>
+</body>
+</html>
