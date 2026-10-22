@@ -1,0 +1,2 @@
+Given the data was too big to export, here is a link to the dataset provided by MMA3001. It is the apple dataset.
+https://drive.google.com/drive/folders/13eo790JWqCG11PpBQtxzf1ditf9pU63S
