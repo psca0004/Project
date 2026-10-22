@@ -1,5 +1,59 @@
 
 
+"""
+Apple Detection Using RGB and Depth Images.
+
+Identifies potential apples in a selected apple-tree image by
+combining red/orange colour segmentation with depth filtering.
+The dataset is read from a ZIP archive containing Summer and
+Winter RGB and depth images.
+
+Dataset:
+    Source: appledata.zip
+    Selected tree: R04U31
+    Image categories: Summer RGB, Summer depth, Winter RGB,
+        and Winter depth
+
+Process:
+    Counts the available images in each category and identifies
+    the Summer RGB and matching Summer depth images for the
+    selected tree.
+
+    Extracts and loads the selected images, then creates a
+    depth mask to retain pixels with grayscale values greater
+    than or equal to 150.
+
+    Converts the RGB image to HSV colour space and identifies
+    red/orange regions using two colour masks.
+
+    Combines the colour and depth masks, applies morphological
+    opening and closing to reduce noise and fill small gaps,
+    and identifies external contours in the resulting mask.
+
+    Counts contours with an area greater than 100 pixels as
+    potential apples.
+
+Outputs:
+    Prints the total number of unique trees and the number of
+    images in each dataset category.
+
+    Prints the selected tree ID and the number of potential
+    apples detected.
+
+Limitations:
+    Detected contours are potential apples, not confirmed
+    individual apples. Overlapping apples may be grouped into
+    one contour, while other red/orange objects may be counted.
+    Detection performance depends on the colour and depth
+    thresholds and the image conditions.
+
+Raises:
+    StopIteration: If a matching Summer RGB or depth image
+        cannot be found for the selected tree.
+    FileNotFoundError: If either extracted image cannot be
+        loaded successfully.
+"""
+
 import zipfile
 import cv2
 import numpy as np
